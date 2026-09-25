@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rede Coletora 138 kV</title>
+<style>
+  :root{
+    --ink:#1b2430; --muted:#5b6675; --line:#d9dee5; --bg:#ffffff; --panel:#f5f7fa;
+    --hv:#c0392b;      /* 138 kV */
+    --mv:#d98a1f;      /* 34,5 kV */
+    --lv:#2c5aa0;      /* 6,9 kV / geração */
+    --good:#1e7d4f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font:13px/1.4 "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .page{max-width:900px;margin:0 auto;padding:20px 16px}
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+    border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:12px;flex-wrap:wrap}
+  h1{font-size:20px;margin:0;line-height:1.2}
+  header p{margin:2px 0 0;color:var(--muted)}
+  .tag{font-size:10.5px;color:var(--muted);text-align:right;white-space:nowrap}
+  .lead{font-size:14px;margin:0 0 12px}
+  .lead b{color:var(--good)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+  .kpi{background:var(--panel);border-radius:6px;padding:8px 10px;border-left:4px solid var(--line)}
+  .kpi .v{font-size:20px;font-weight:700;line-height:1.1}
+  .kpi .l{font-size:11px;color:var(--muted)}
+  .kpi.hv{border-color:var(--hv)} .kpi.mv{border-color:var(--mv)} .kpi.ok{border-color:var(--good)}
+  .kpi.ok .v{color:var(--good)}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;color:var(--muted)}
+  .diag{border:1px solid var(--line);border-radius:6px;padding:6px 8px 2px;margin-bottom:8px}
+  .diag .hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .diag .hd strong{font-size:13px}
+  .chip{font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:10px;white-space:nowrap}
+  .chip.mv{background:#fbeedd;color:#8a5208} .chip.hv{background:#f8e1de;color:#8e2a1f}
+  svg{display:block;width:100%;height:auto}
+  svg text{font-family:inherit}
+  .legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin:2px 0 12px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:4px}
+  .row{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
+  table{border-collapse:collapse;width:100%;font-size:12px}
+  th,td{padding:3px 6px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  th{font-size:11px;color:var(--muted);font-weight:600}
+  tr.hl td{background:#e7f4ec;font-weight:700}
+  .calc{font-size:12px;background:var(--panel);border-radius:6px;padding:8px 10px;margin-top:8px}
+  .calc div{display:flex;justify-content:space-between}
+  .calc .t{border-top:1px solid var(--line);margin-top:3px;padding-top:3px;font-weight:700}
+  .note{font-size:10px;color:var(--muted);margin-top:6px;border-top:1px solid var(--line);padding-top:6px}
+  .note p{margin:0 0 2px}
+  @media (max-width:700px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .row{grid-template-columns:1fr}
+  }
+  @page{size:A4 portrait;margin:9mm}
+  @media print{
+    .page{padding:0;max-width:none}
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div>
+    <h1>Por que a rede coletora em 138 kV e não em 34,5 kV</h1>
+    <p>Complexo Assungui · 5 PCHs · 52,94 MW · conexão na LDAT 138 kV Bateias – Rio Branco do Sul</p>
+  </div>
+  <div class="tag">Fontes: MD.ASI.00 (Memorial Descritivo)<br>e planilha “Análise Custos x Perdas”</div>
+</header>
+
+<p class="lead">A rede em 138 kV custa <b>R$ 32,7 mi a mais</b>, mas perde <b>24 GWh/ano a menos</b>.
+A R$ 400/MWh (último leilão), isso vale <b>R$ 9,6 mi por ano</b>. O custo adicional se paga em <b>cerca de 3,4 anos</b>.</p>
+
+<div class="kpis">
+  <div class="kpi mv"><div class="v">3.670 kW</div><div class="l">Perdas em 34,5 kV (6,9% da potência)</div></div>
+  <div class="kpi hv"><div class="v">931 kW</div><div class="l">Perdas em 138 kV (1,8% da potência)</div></div>
+  <div class="kpi ok"><div class="v">R$ 9,6 mi/ano</div><div class="l">Perdas evitadas: 23.989 MWh × R$ 400</div></div>
+  <div class="kpi ok"><div class="v">3,4 anos</div><div class="l">Payback simples do ΔCAPEX de R$ 32,7 mi</div></div>
+</div>
+
+<!-- ============ DIAGRAMA 34,5 kV ============ -->
+<div class="diag">
+  <div class="hd"><strong>Cenário 01 · 34,5 kV: três alimentadores radiais até a SE</strong>
+    <span class="chip mv">147,6 km de linha · perdas 3.670 kW · 32.147 MWh/ano</span></div>
+  <svg viewBox="0 0 915 175" role="img" aria-label="Diagrama unifilar do cenário em 34,5 kV">
+    <!-- alimentadores 34,5 kV -->
+    <g stroke="var(--mv)" stroke-width="3" fill="none">
+      <polyline points="60,110 60,28 700,28"/>                 <!-- 2B -->
+      <polyline points="230,110 230,100 350,100"/>             <!-- 2C-2D -->
+      <polyline points="350,110 350,55 700,55"/>               <!-- 2C+2D -->
+      <polyline points="520,110 520,100 620,100"/>             <!-- 2E-2F -->
+      <polyline points="620,110 620,82 700,82"/>               <!-- 2E+2F -->
+      <line x1="700" y1="18" x2="700" y2="92" stroke-width="7"/> <!-- barra 34,5 -->
+      <line x1="700" y1="55" x2="752" y2="55"/>
+    </g>
+    <!-- trafo 34,5/138 -->
+    <circle cx="762" cy="55" r="10" fill="#fff" stroke="var(--mv)" stroke-width="2"/>
+    <circle cx="776" cy="55" r="10" fill="#fff" stroke="var(--hv)" stroke-width="2"/>
+    <text x="769" y="82" font-size="10" text-anchor="middle" fill="var(--muted)">trafo 34,5/138</text>
+    <text x="769" y="93" font-size="10" text-anchor="middle" fill="var(--muted)">R$ 5 mi</text>
+    <line x1="786" y1="55" x2="820" y2="55" stroke="var(--hv)" stroke-width="3"/>
+    <!-- SE Secc + LDAT -->
+    <line x1="820" y1="12" x2="820" y2="150" stroke="var(--hv)" stroke-width="7"/>
+    <line x1="820" y1="20" x2="880" y2="20" stroke="var(--hv)" stroke-width="3" stroke-dasharray="5 3"/>
+    <line x1="820" y1="142" x2="880" y2="142" stroke="var(--hv)" stroke-width="3" stroke-dasharray="5 3"/>
+    <text x="826" y="11" font-size="9.5" fill="var(--muted)">↑ R. Branco do Sul</text>
+    <text x="826" y="160" font-size="9.5" fill="var(--muted)">↓ Bateias</text>
+    <text x="828" y="100" font-size="11" font-weight="700">SE Secc.</text>
+    <!-- rótulos de trechos -->
+    <g font-size="11">
+      <text x="380" y="22" text-anchor="middle">PCH 2B → SE · 42,0 km · <tspan fill="var(--hv)" font-weight="700">781 kW</tspan></text>
+      <text x="525" y="49" text-anchor="middle">2C+2D → SE · 50,1 km (2×477) · <tspan fill="var(--hv)" font-weight="700">2.038 kW</tspan></text>
+      <text x="290" y="94" text-anchor="middle">4,4 km · 98 kW</text>
+      <text x="660" y="76" text-anchor="middle" font-size="10">43,4 km</text>
+      <text x="660" y="96" text-anchor="middle" font-size="10" fill="var(--hv)" font-weight="700">703 kW</text>
+      <text x="570" y="94" text-anchor="middle">7,7 km · 50 kW</text>
+    </g>
+    <!-- usinas -->
+    <g id="pchs-mv">
+      <g font-size="11" text-anchor="middle">
+        <g transform="translate(60,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2B</text><text y="172" fill="var(--muted)" font-size="10">12,0 MW</text></g>
+        <g transform="translate(230,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2C</text><text y="172" fill="var(--muted)" font-size="10">13,1 MW</text></g>
+        <g transform="translate(350,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2D</text><text y="172" fill="var(--muted)" font-size="10">12,0 MW</text></g>
+        <g transform="translate(520,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2E</text><text y="172" fill="var(--muted)" font-size="10">5,94 MW</text></g>
+        <g transform="translate(620,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2F</text><text y="172" fill="var(--muted)" font-size="10">9,9 MW</text></g>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<!-- ============ DIAGRAMA 138 kV ============ -->
+<div class="diag">
+  <div class="hd"><strong>Cenário 02 · 138 kV: cascata PCH a PCH até a SE (solução adotada)</strong>
+    <span class="chip hv">72,4 km de linha · perdas 931 kW · 8.158 MWh/ano</span></div>
+  <svg viewBox="0 0 915 175" role="img" aria-label="Diagrama unifilar do cenário em 138 kV">
+    <g stroke="var(--hv)" stroke-width="3" fill="none">
+      <line x1="60" y1="55" x2="820" y2="55"/>
+      <line x1="60" y1="55" x2="60" y2="110"/><line x1="230" y1="55" x2="230" y2="110"/>
+      <line x1="350" y1="55" x2="350" y2="110"/><line x1="520" y1="55" x2="520" y2="110"/>
+      <line x1="620" y1="55" x2="620" y2="110"/>
+    </g>
+    <g fill="var(--hv)"><circle cx="60" cy="55" r="4"/><circle cx="230" cy="55" r="4"/><circle cx="350" cy="55" r="4"/><circle cx="520" cy="55" r="4"/><circle cx="620" cy="55" r="4"/></g>
+    <!-- SE Secc + LDAT -->
+    <line x1="820" y1="12" x2="820" y2="150" stroke="var(--hv)" stroke-width="7"/>
+    <line x1="820" y1="20" x2="880" y2="20" stroke="var(--hv)" stroke-width="3" stroke-dasharray="5 3"/>
+    <line x1="820" y1="142" x2="880" y2="142" stroke="var(--hv)" stroke-width="3" stroke-dasharray="5 3"/>
+    <text x="826" y="11" font-size="9.5" fill="var(--muted)">↑ R. Branco do Sul</text>
+    <text x="826" y="160" font-size="9.5" fill="var(--muted)">↓ Bateias</text>
+    <text x="828" y="100" font-size="11" font-weight="700">SE Secc.</text>
+    <!-- trechos: km em cima, fluxo e perda embaixo -->
+    <g font-size="11" text-anchor="middle">
+      <text x="145" y="46">22,0 km</text><text x="145" y="72" font-size="10" fill="var(--muted)">12 MW · <tspan fill="var(--good)" font-weight="700">26 kW</tspan></text>
+      <text x="290" y="46">4,4 km</text><text x="290" y="72" font-size="10" fill="var(--muted)">25 MW · <tspan fill="var(--good)" font-weight="700">22 kW</tspan></text>
+      <text x="435" y="46">11,0 km</text><text x="435" y="72" font-size="10" fill="var(--muted)">37 MW · <tspan fill="var(--good)" font-weight="700">122 kW</tspan></text>
+      <text x="570" y="46">4,0 km</text><text x="570" y="72" font-size="10" fill="var(--muted)">43 MW · <tspan fill="var(--good)" font-weight="700">60 kW</tspan></text>
+      <text x="720" y="46">31,0 km</text><text x="720" y="72" font-size="10" fill="var(--muted)">53 MW · <tspan fill="var(--good)" font-weight="700">701 kW</tspan></text>
+    </g>
+    <text x="440" y="20" font-size="10.5" text-anchor="middle" fill="var(--muted)">Cada PCH eleva direto de 6,9 para 138 kV. Não há trafo 34,5/138 nem bays de 34,5 kV na SE.</text>
+    <g font-size="11" text-anchor="middle">
+      <g transform="translate(60,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2B</text><text y="172" fill="var(--muted)" font-size="10">12,0 MW</text></g>
+      <g transform="translate(230,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2C</text><text y="172" fill="var(--muted)" font-size="10">13,1 MW</text></g>
+      <g transform="translate(350,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2D</text><text y="172" fill="var(--muted)" font-size="10">12,0 MW</text></g>
+      <g transform="translate(520,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2E</text><text y="172" fill="var(--muted)" font-size="10">5,94 MW</text></g>
+      <g transform="translate(620,0)"><rect x="-8" y="110" width="16" height="6" fill="var(--lv)"/><circle cy="132" r="11" fill="#fff" stroke="var(--lv)" stroke-width="2"/><text y="136" fill="var(--lv)" font-weight="700">G</text><text y="160" font-weight="700">PCH 2F</text><text y="172" fill="var(--muted)" font-size="10">9,9 MW</text></g>
+    </g>
+  </svg>
+</div>
+<div class="legend">
+  <span><i style="background:var(--hv)"></i>138 kV</span>
+  <span><i style="background:var(--mv)"></i>34,5 kV</span>
+  <span><i style="background:var(--lv)"></i>6,9 kV (geração)</span>
+  <span>Valores em destaque: perda Joule por trecho, com a usina a plena potência</span>
+</div>
+
+<!-- ============ PAYBACK ============ -->
+<div class="row">
+  <div>
+    <h2>Economia acumulada × ΔCAPEX</h2>
+    <svg viewBox="0 0 470 235" style="max-height:215px" role="img" aria-label="Gráfico de payback: economia acumulada cruza o ΔCAPEX em 3,4 anos">
+      <!-- eixos: x 0..10 anos → 50..450 ; y 0..70 mi → 200..20 -->
+      <g stroke="var(--line)" stroke-width="1">
+        <line x1="50" y1="200" x2="450" y2="200"/>
+        <line x1="50" y1="148.6" x2="450" y2="148.6"/>
+        <line x1="50" y1="97.1" x2="450" y2="97.1"/>
+        <line x1="50" y1="45.7" x2="450" y2="45.7"/>
+      </g>
+      <g font-size="10" fill="var(--muted)" text-anchor="end">
+        <text x="44" y="203">0</text><text x="44" y="151.6">20</text><text x="44" y="100.1">40</text><text x="44" y="48.7">60</text>
+      </g>
+      <text x="12" y="110" font-size="10" fill="var(--muted)" transform="rotate(-90 12 110)" text-anchor="middle">R$ milhões</text>
+      <g font-size="10" fill="var(--muted)" text-anchor="middle">
+        <text x="50" y="215">0</text><text x="130" y="215">2</text><text x="210" y="215">4</text><text x="290" y="215">6</text><text x="370" y="215">8</text><text x="450" y="215">10</text>
+        <text x="250" y="230">anos de operação</text>
+      </g>
+      <!-- ΔCAPEX 32,748 mi → y = 200 - 32.748*2.5714 = 115.8 -->
+      <line x1="50" y1="115.8" x2="450" y2="115.8" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="56" y="109" font-size="10.5" font-weight="700">ΔCAPEX R$ 32,7 mi</text>
+      <!-- base: 9,596 mi/ano → em 7 anos 67,17 → y=27.3 ; x=50+7*40=330 -->
+      <line x1="50" y1="200" x2="330" y2="27.3" stroke="var(--good)" stroke-width="3"/>
+      <text x="336" y="30" font-size="10.5" fill="var(--good)" font-weight="700">R$ 9,6 mi/ano</text>
+      <!-- conservador: 4,798 mi/ano → em 10 anos 47,98 → y=76.6 -->
+      <line x1="50" y1="200" x2="450" y2="76.6" stroke="var(--good)" stroke-width="2" stroke-dasharray="4 3" opacity=".7"/>
+      <text x="448" y="68" font-size="10" fill="var(--good)" text-anchor="end">perdas pela metade: R$ 4,8 mi/ano</text>
+      <!-- cruzamentos: 3,41 anos → x=186.5 ; 6,83 → x=323 -->
+      <circle cx="186.5" cy="115.8" r="5" fill="var(--good)"/>
+      <line x1="186.5" y1="115.8" x2="186.5" y2="200" stroke="var(--good)" stroke-width="1" stroke-dasharray="2 2"/>
+      <text x="192" y="140" font-size="11.5" fill="var(--good)" font-weight="700">3,4 anos</text>
+      <circle cx="323" cy="115.8" r="4" fill="#fff" stroke="var(--good)" stroke-width="2"/>
+      <text x="323" y="135" font-size="10" fill="var(--good)" text-anchor="middle">6,8 anos</text>
+    </svg>
+  </div>
+  <div>
+    <h2>Sensibilidade ao preço</h2>
+    <table>
+      <thead><tr><th>Preço (R$/MWh)</th><th>Economia/ano</th><th>Payback</th><th>Perdas ÷ 2</th></tr></thead>
+      <tbody>
+        <tr><td>200</td><td>R$ 4,8 mi</td><td>6,8 anos</td><td>13,7 anos</td></tr>
+        <tr><td>300</td><td>R$ 7,2 mi</td><td>4,6 anos</td><td>9,1 anos</td></tr>
+        <tr><td>389 (planilha)</td><td>R$ 9,3 mi</td><td>3,5 anos</td><td>7,0 anos</td></tr>
+        <tr class="hl"><td>400 (leilão)</td><td>R$ 9,6 mi</td><td>3,4 anos</td><td>6,8 anos</td></tr>
+        <tr><td>500</td><td>R$ 12,0 mi</td><td>2,7 anos</td><td>5,5 anos</td></tr>
+      </tbody>
+    </table>
+    <div class="calc">
+      <div><span>CAPEX 138 kV</span><span>R$ 93,47 mi</span></div>
+      <div><span>CAPEX 34,5 kV</span><span>R$ 60,72 mi</span></div>
+      <div class="t"><span>ΔCAPEX</span><span>R$ 32,75 mi</span></div>
+      <div style="margin-top:4px"><span>Perdas evitadas</span><span>32.147 − 8.158 = 23.989 MWh/ano</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <p><b>Premissas.</b> As perdas são ôhmicas (I²R), com cabos CAA a 90 °C, conforme o Memorial Descritivo (itens 5.3 e 5.4). A energia anual considera operação contínua à potência nominal (8.760 h). O CAPEX vem da planilha de custos e inclui linhas, bays, SE de seccionamento, projeto, engenharia e fundiário. O payback é simples, sem desconto.</p>
+  <p><b>Leitura conservadora.</b> As PCHs não operam o ano todo a plena carga, então as perdas reais tendem a ser menores que as calculadas. A linha tracejada mostra o caso em que as perdas caem pela metade: mesmo assim, o investimento se paga em menos de 7 anos. As perdas do trafo 34,5/138 kV, que só existe no Cenário 01, não foram somadas; incluí-las favoreceria ainda mais o 138 kV.</p>
+</div>
+
+</div>
+</body>
+</html>
