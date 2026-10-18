@@ -2,8 +2,8 @@
 
 `Complexo_Assungui_PCHs_3D.kmz` abre no Google Earth Pro. Ele mostra as 5 PCHs (2B, 2C, 2D, 2E e 2F) com:
 
-- **Barragem 3D**: barragem de CCR em degraus, com o vertedouro de soleira livre em tom mais claro;
-- **Casa de força**: bloco marrom-azulado no pé da barragem;
+- **Barragem 3D**: modelo sólido (COLLADA, em `modelos/`), com sombreamento pela luz do Google Earth. A barragem de CCR tem paramento liso e o vertedouro de soleira livre tem degraus;
+- **Casa de força**: bloco com telhado no pé da barragem;
 - **Lâmina d'água 3D (NA)**: lago plano na cota do NA;
 - **Área alagada** (azul) e **APP** (verde): mesmo estilo dos KMZ de reservatório.
 
