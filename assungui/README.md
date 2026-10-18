@@ -5,3 +5,5 @@
 
 Fontes: Memorial Descritivo MD.ASI.00 e planilha "Análise Custos x Perdas".
 Abra os arquivos em qualquer navegador; não é preciso internet.
+
+- `barragens_3d/`: KMZ das 5 PCHs em 3D para o Google Earth (barragem, vertedouro, casa de força, lago e APP). Veja o README da pasta.
